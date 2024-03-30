@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../conection";
+import { sequelize } from "../connection";
 
 export const Loan = sequelize.define(
   "loan",

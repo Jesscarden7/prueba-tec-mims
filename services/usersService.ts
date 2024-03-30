@@ -52,7 +52,7 @@ const usersService = {
       return response;
     }
 
-    const SECRET_KEY: Secret = "itsasecret";
+    const SECRET_KEY: Secret = process.env.SECRET_KEY as string;
 
     const token = jwt.sign(
       {
@@ -71,7 +71,7 @@ const usersService = {
     const response: responseType = {
       data: {
         token,
-        user: existingUser
+        user: existingUser,
       },
       isSuccessful: true,
     };

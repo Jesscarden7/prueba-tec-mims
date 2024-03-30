@@ -1,11 +1,11 @@
 import { Sequelize } from "sequelize";
 
 export const sequelize = new Sequelize(
-  "library_db_a627",
-  "jesscarden",
-  "spItSwEBMDzxgNVTPgAgYHVwpyCeniIq",
+  process.env.DB_NAME as string,
+  process.env.DB_USER as string,
+  process.env.DB_PASSWORD,
   {
-    host: "dpg-co42cja1hbls73bodqag-a.oregon-postgres.render.com",
+    host: process.env.HOST,
     dialect: "postgres",
     dialectOptions: {
       ssl: true,

@@ -1,14 +1,17 @@
 import express, { Express, Request, Response, Application } from "express";
+import * as dotenv from "dotenv";
+dotenv.config();
+
 import usersRouter from "./routes/users.routes";
 import booksRouter from "./routes/books.routes";
 import loansRouter from "./routes/loans.routes";
-import { sequelize } from "./database/conection";
-import swaggerjsdoc from 'swagger-jsdoc';
-import swaggerui from 'swagger-ui-express';
+import { sequelize } from "./database/connection";
+import swaggerjsdoc from "swagger-jsdoc";
+import swaggerui from "swagger-ui-express";
 
-import "./database/models/User"
-import "./database/models/Book"
-import "./database/models/Loan"
+import "./database/models/User";
+import "./database/models/Book";
+import "./database/models/Loan";
 
 async function main() {
   try {
@@ -26,29 +29,22 @@ async function main() {
           contact: {
             name: "Jess Library",
             url: "https://www.google.com/?hl=es",
-            email: "jessica@libray.com"
-          }
+            email: "jessica@libray.com",
+          },
         },
         schemes: ["http", "https"],
         servers: [{ url: "http://localhost:3000/" }],
       },
-      apis: [
-        "./routes/*.ts",
-        "./dist/routes/*.js",
-      ],
+      apis: ["./routes/*.ts", "./dist/routes/*.js"],
     };
-    
-    const spacs = swaggerjsdoc(options)
-    
-    app.use("/api-docs",
-      swaggerui.serve,
-      swaggerui.setup(spacs)
-    )
+
+    const spacs = swaggerjsdoc(options);
+
+    app.use("/api-docs", swaggerui.serve, swaggerui.setup(spacs));
 
     app.use("/api/auth", usersRouter);
     app.use("/api/books", booksRouter);
     app.use("/api/loans", loansRouter);
-
 
     app.get("/", (req: Request, res: Response) => {
       res.send("Service avaliable");
@@ -56,8 +52,8 @@ async function main() {
 
     await sequelize.sync();
 
-    app.listen(3000, () => {
-      console.log("Server running in port 3000");
+    app.listen(process.env.PORT, () => {
+      console.log("Server running in port " + process.env.PORT);
     });
   } catch (error) {
     console.error("Unable to connect to the database:", error);
