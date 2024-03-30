@@ -1,5 +1,5 @@
-export type responseType<T> = {
-  data?: T;
+export type responseType  = {
+  data?: any;
   errorMessage?: string;
-  isSuccesful: boolean;
+  isSuccessful: boolean;
 };
